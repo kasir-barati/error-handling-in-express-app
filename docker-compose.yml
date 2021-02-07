@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:13
+    env_file:
+      - ./.env.postgres
+    container_name: ${APP_NAME}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
