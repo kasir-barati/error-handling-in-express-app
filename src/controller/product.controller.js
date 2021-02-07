@@ -1,8 +1,12 @@
 //@ts-check
 const { ForeignKeyConstraintError } = require('sequelize');
 
-const WrongProductIdAsPrimaryId = require('../component/custom-express-error/wrong-pk-product-id.component');
-const WrongProductIdAsForeignKey = require('../component/custom-express-error/wrong-fk-product-id.component');
+const errorCatcher = require('../util/error-catcher');
+
+const {
+	WrongProductIdAsPrimaryId,
+	WrongProductIdAsForeignKey,
+} = require('../component/custom-express-error/');
 
 /**@type {import('express').RequestHandler} */
 function primaryKey(req, res, next) {
