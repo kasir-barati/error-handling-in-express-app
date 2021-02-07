@@ -1,0 +1,23 @@
+{
+  "name": "error-handling-in-express-app",
+  "version": "1.0.0",
+  "description": "A very simple but powerful way to handle errors in your express app with the Open closed principle",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodejsdeveloperskh/error-handling-in-express-app.git"
+  },
+  "author": "nodejsdeveloperskh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodejsdeveloperskh/error-handling-in-express-app/issues"
+  },
+  "homepage": "https://github.com/nodejsdeveloperskh/error-handling-in-express-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sequelize": "^6.5.0"
+  }
+}
