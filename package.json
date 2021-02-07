@@ -18,6 +18,10 @@
   "homepage": "https://github.com/nodejsdeveloperskh/error-handling-in-express-app#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "pg": "^8.5.1",
     "sequelize": "^6.5.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
