@@ -3,30 +3,42 @@ const { ForeignKeyConstraintError } = require('sequelize');
 
 const errorCatcher = require('../util/error-catcher');
 
+const productRepository = require('../repository/product.repository');
+
 const {
 	WrongProductIdAsPrimaryId,
 	WrongProductIdAsForeignKey,
 } = require('../component/custom-express-error/');
 
 /**@type {import('express').RequestHandler} */
-function primaryKey(req, res, next) {
-	let error = new Error(
-		'Entered product id as PK does not exists in database.',
-	);
-	next(new WrongProductIdAsPrimaryId(error));
+async function primaryKey(req, res, next) {
+	await productRepository
+		.findProductByPk()
+		.catch((error) => {
+			errorCatcher(error, [
+				{
+					OriginalError: WrongProductIdAsPrimaryId,
+					ExpressError: WrongProductIdAsPrimaryId,
+				},
+			]);
+		});
 }
 
 /**@type {import('express').RequestHandler} */
-function foreignKey(req, res, next) {
-	let error = new ForeignKeyConstraintError({
-		message:
-			'Entered product id as FK does not exists in database',
-		fields: ['productId'],
-		index: '',
-		parent: new Error(),
-		table: 'Product',
-	});
-	next(new WrongProductIdAsForeignKey(error));
+async function foreignKey(req, res, next) {
+	await productRepository
+		.createProduct({
+			title: 'p1',
+			brandId: '',
+		})
+		.catch((error) => {
+			errorCatcher(error, [
+				{
+					OriginalError: ForeignKeyConstraintError,
+					ExpressError: WrongProductIdAsForeignKey,
+				},
+			]);
+		});
 }
 
 module.exports = {
