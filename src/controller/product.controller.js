@@ -1,5 +1,8 @@
 //@ts-check
-const { ForeignKeyConstraintError } = require('sequelize');
+const {
+	ForeignKeyConstraintError,
+	DatabaseError,
+} = require('sequelize');
 
 const errorCatcher = require('../util/error-catcher');
 
@@ -13,11 +16,15 @@ const {
 /**@type {import('express').RequestHandler} */
 async function primaryKey(req, res, next) {
 	await productRepository
-		.findProductByPk()
+		.findProductByPk('')
 		.catch((error) => {
 			errorCatcher(error, [
 				{
 					OriginalError: WrongProductIdAsPrimaryId,
+					ExpressError: WrongProductIdAsPrimaryId,
+				},
+				{
+					OriginalError: DatabaseError,
 					ExpressError: WrongProductIdAsPrimaryId,
 				},
 			]);
@@ -32,9 +39,15 @@ async function foreignKey(req, res, next) {
 			brandId: '',
 		})
 		.catch((error) => {
+			console.log('\n\n\n');
+			console.error(error);
 			errorCatcher(error, [
 				{
 					OriginalError: ForeignKeyConstraintError,
+					ExpressError: WrongProductIdAsForeignKey,
+				},
+				{
+					OriginalError: DatabaseError,
 					ExpressError: WrongProductIdAsForeignKey,
 				},
 			]);
