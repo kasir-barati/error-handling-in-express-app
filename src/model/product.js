@@ -1,5 +1,7 @@
 //@ts-check
-const { Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
+
+const { getSequelize } = require('./sequelize');
 
 class Product extends Model {
 	static col = {
@@ -8,5 +10,17 @@ class Product extends Model {
 		brandId: 'brandId',
 	};
 }
+
+Product.init(
+	{
+		[Product.col.id]: {
+			type: DataTypes.UUID,
+			primaryKey: true,
+		},
+	},
+	{
+		sequelize: getSequelize(),
+	},
+);
 
 module.exports = Product;
