@@ -7,6 +7,8 @@ const unExpectedErrorMiddleware = require('./middleware/unexpected-errors.middle
 
 const app = express();
 
+app.get('/primary-key', productController.primaryKey);
+app.get('/foreign-key', productController.foreignKey);
 app.use(expectedErrorMiddleware);
 app.use(unExpectedErrorMiddleware);
 
